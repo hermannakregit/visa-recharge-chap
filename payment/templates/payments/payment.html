@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block CinetpayScriptsHeader %}
+    <script src="https://cdn.cinetpay.com/seamless/main.js" type="text/javascript"></script>
+{% endblock CinetpayScriptsHeader %}
+
+{% block content %}
+    
+{% endblock content %}
+
+{% block CinetpayScriptsFooter %}
+    {{ payment.transaction_id | json_script:"json-transactionid" }}
+    {{ payment.montant | json_script:"json-montant" }}
+    {{ payment.description | json_script:"json-description" }}
+
+    {{ payment.client.first_name | json_script:"json-name" }}
+    {{ payment.client.last_name | json_script:"json-surname" }}
+    {{ payment.client.email | json_script:"json-email" }}
+    {{ payment.client.contact_one | json_script:"json-contact" }}
+    {{ payment.client.address | json_script:"json-address" }}
+    {{ payment.client.city | json_script:"json-city" }}
+    {{ payment.client.country.code | json_script:"json-country" }}
+    {{ payment.client.country.code | json_script:"json-state" }}
+
+    {{ payment.client.slug | json_script:"json-clientslug" }}
+    {{ payment.slug | json_script:"json-paymentslug" }}
+
+    <script>
+
+        let transaction_id = JSON.parse(document.querySelector('#json-transactionid').textContent);
+        let montant = JSON.parse(document.querySelector('#json-montant').textContent);
+        let description = JSON.parse(document.querySelector('#json-description').textContent);
+
+        let name = JSON.parse(document.querySelector('#json-name').textContent);
+        let surname = JSON.parse(document.querySelector('#json-surname').textContent);
+        let email = JSON.parse(document.querySelector('#json-email').textContent);
+        let contact = JSON.parse(document.querySelector('#json-contact').textContent);
+        let address = JSON.parse(document.querySelector('#json-address').textContent);
+        let city = JSON.parse(document.querySelector('#json-city').textContent);
+        let country = JSON.parse(document.querySelector('#json-country').textContent);
+        let state = JSON.parse(document.querySelector('#json-state').textContent);
+
+        let clientSlug = JSON.parse(document.querySelector('#json-clientslug').textContent);
+        let paymentSlug = JSON.parse(document.querySelector('#json-paymentslug').textContent);
+
+
+        let returnUrl = window.location.href;
+
+        CinetPay.setConfig({
+            apikey: '12662532135d276e2265ca35.50646383',
+            site_id: 939314,
+            mode: 'PRODUCTION',
+            notify_url: 'http://visa.mutuelleawoundjo.com/notify/',
+            return_url: returnUrl,
+        });
+
+        CinetPay.getCheckout({
+            transaction_id: transaction_id,
+            amount: montant,
+            currency: 'XOF',
+            channels: 'ALL',
+            description: description,
+            //Fournir ces variables obligatoirement pour le paiements par carte bancaire
+            customer_name: name ,//Le nom du client
+            customer_surname: surname ,//Le prenom du client
+            customer_email: email ,//l'email du client
+            customer_phone_number: contact,//l'email du client
+            customer_address : address,//addresse du client
+            customer_city: city,// La ville du client
+            customer_country : country,// le code ISO du pays
+            customer_state : state,// le code ISO l'état
+            customer_zip_code : "99326", // code postal
+
+            metadata: '',
+            invoice_data: '' // objet, prend seulement 3 variable
+        });
+
+        CinetPay.waitResponse(function(data) {
+            //console.log(data);
+            // En cas d'échec
+             if (data.status == "REFUSED") {
+                window.location.replace(`/clients/${clientSlug}/?f=failed`)
+             }
+             // En cas de succès
+             else if (data.status == "ACCEPTED") {
+                window.location.replace(`/payments/payment/${paymentSlug}/`)
+             }
+        });
+
+        CinetPay.onError(function(data) {
+            //console.log(data);
+        });
+        
+        
+    </script>
+{% endblock CinetpayScriptsFooter %}

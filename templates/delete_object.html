@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<div class="row gutters justify-content-center mt-5">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+        <div class="card">
+            <cdiv class="card-body text-center">
+                <span><strong>{{ object|upper }}</strong></span>
+            </cdiv>
+        </div>
+        <div class="card text-center">
+            <div class="card-header">
+                <h1>🤔</h1>
+            </div>
+            
+            <div class="card-body">
+                <p class="card-text text-muted">Aucun retour posssible après la supression de cet élément !</p>
+                <p class="card-text">Êtes-vous sur de vouloir suprimer ?</p>
+            </div>
+
+            <div class="card-footer">
+                <div class="d-flex justify-content-around">
+                    <div>
+                        <a class="btn btn-success" href="{% if request.GET.next %} {{ request.GET.next }} {% else %} {% url 'cartes' %} {% endif %}">Annuler</a>
+                    </div>
+                    <div>
+                        <form action="." method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Suprimer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

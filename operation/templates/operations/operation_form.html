@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<div>
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 mx-auto">
+        <div class="card">
+            <div class="card-header">Nouvelle Opération de Rechargement</div>
+            <div class="card-body">
+
+                <div class="row gutters">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <p class="text-uppercase">
+                            <strong>Information de la Carte</strong>
+                        </p>
+                        <address>
+                            <p class="m-0">
+                                {{ carte.carte_num }} <br>
+                                {{ carte.type_carte.name }}
+                            </p>
+                        </address>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <p class="text-uppercase">
+                            <strong>Information du client</strong>
+                        </p>
+                        <address>
+                            <p class="m-0">
+                                {{ carte.owner.first_name }} {{ carte.owner.last_name|slice:15 }} <br>
+                                {{ carte.owner.email|slice:25 }}
+                            </p>
+                        </address>
+                    </div>
+                </div>
+
+                {% if page == "resume" %}
+                  <div class="alert bg-light">
+                    <address>
+                        <p class="m-0">
+                            Le réchargement demandé est de {{ montant }} XOF <br>
+                            Les frais de rechargement sont de {{ frais }}
+                        </p>
+                    </address>
+                    <address>
+                        <small>Frais de service {{ service }} XOF </small>
+                        <p class="m-0">
+                            Le montant total de rechargement est de <strong>{{ montantTotal }} XOF</strong> <br>
+                        </p>
+                    </address>
+                    <div>
+                        <form action="{% url 'operation-payment' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="slug" value="{{ carte.slug }}">
+                            <input type="hidden" name="montant" value="{{ montant }}">
+                            <button type="submit" class="btn btn-secondary float-right">Valider</button>
+                        </form>
+                    </div>
+                  </div>
+
+                {% endif %} 
+
+                <form action="{% url 'create-operation' carte.slug %}" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label for="">{{ field.label }}</label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small class="form-text text-muted"> {{ field.help_text }} </small>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                        <small class="form-text text-danger"> {{ error }} </small>
+                        {% endfor %}
+
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary float-right">Resumer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

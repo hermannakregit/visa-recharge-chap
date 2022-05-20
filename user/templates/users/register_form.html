@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mx-auto">
+        <div class="card">
+            <div class="card-header">Nouvel Utilisateur</div>
+            <div class="card-body">
+                {% for field in form %}
+                  <div class="form-group">
+                      <label for="">{{ field.label }}</label>
+
+                      {{ field }}
+
+                      {% if field.help_text %}
+                        <small class="form-text text-muted"> {{ field.help_text }} </small>
+                      {% endif %}
+
+                      {% for error in field.errors %}
+                      <small class="form-text text-danger"> {{ error }} </small>
+                      {% endfor %}
+
+                  </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary mt-3 float-right">Ajouter</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock content %}

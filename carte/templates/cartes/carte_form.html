@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<form action="{% if page == 'create' %} {% url 'create-carte' %} {% else %} {% url 'update-carte' carte.slug %} {% endif %}" method="post">
+    {% csrf_token %}
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mx-auto">
+        <div class="card">
+            {% if page == 'create' %}
+                <div class="card-header">Nouvelle Carte</div>
+            {% else %}
+                <div class="card-header">Modifier la carte</div>
+            {% endif %}
+            
+            <div class="card-body">
+                {% for field in form %}
+                  <div class="form-group">
+                      <label for="">{{ field.label }}</label>
+
+                      {{ field }}
+
+                      {% if field.help_text %}
+                        <small class="form-text text-muted"> {{ field.help_text }} </small>
+                      {% endif %}
+
+                      {% for error in field.errors %}
+                      <small class="form-text text-danger"> {{ error }} </small>
+                      {% endfor %}
+
+                  </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary mt-3 float-right">
+                    {% if page == 'create' %}
+                       Ajouter
+                    {% else %}
+                        Modifier
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

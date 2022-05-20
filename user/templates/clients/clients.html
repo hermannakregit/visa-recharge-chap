@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+    <div class="row gutters">
+        <div class="col-xl-6 col-lg- col-md-6 col-sm-6 mx-auto my-4">
+        <form action="{% url 'clients' %}" method="get">
+            <div class="d-flex">
+                <input class="form-control w-100" type="search" name="q" value="{{ query }}" placeholder="Rechercher...">
+                <button class="btn btn-dark" type="submit"> <i class="icon-search"></i> </button>
+            </div>
+            <div class="text-center"><small class="text-form text-muted">Rechercher par nom , prénom, email,...</small></div>
+        </form>
+        </div>
+    </div>
+
+    <!-- Row start -->
+    <div class="row gutters justufy-content-center">
+        {% for fiche in fiches  %} 
+            <a href="{% url 'client-profile' fiche.slug %}">
+                <div class="card mx-1" style="width: 12rem;">
+                    <div class="text-center mt-3">
+                        <img class="card-img-top" src="{{ fiche.owner.image.url }}" alt="" style="height: 8rem; width: 8rem; border-radius: 50%;">
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="card-title block">{{ fiche.first_name }} {{ fiche.last_name }} </p>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <div class="alert bg-info text-white text-center mx-auto mt-5 w-25">
+                <h1>🤔</h1>
+                <span>Aucun résultat trouvé.</span>
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Row end -->
+
+    {% include "partials/pagination.html" with queryset=fiches custom_range=custom_range %}
+
+{% endblock content %}

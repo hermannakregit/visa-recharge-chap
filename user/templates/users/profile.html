@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+
+    <!-- Row start -->
+    <div class="row gutters justify-content-center">
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col">
+            <a href="#" class="block-140">
+                <div class="icon violet">
+                    <i class="icon-shopping-cart2"></i>
+                </div>
+                <h5>2540</h5>
+                <p>Cartes Vendues</p>
+            </a>
+            <a href="" class="block-140">
+                <div class="icon pink">
+                    <i class="icon-thumbs-up2"></i>
+                </div>
+                <h5>763</h5>
+                <p>Opérations En Attentes</p>
+            </a>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col">
+            <a href="#" class="block-140">
+                <div class="icon success">
+                    <i class="icon-bell3"></i>
+                </div>
+                <h5>218</h5>
+                <p>Opérations Validées</p>
+            </a>
+            <a href="#" class="block-140">
+                <div class="icon warning">
+                    <i class="icon-location4"></i>
+                </div>
+                <h5>549</h5>
+                <p>Locations</p>
+            </a>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+            <a href="#" class="block-140">
+                <div class="icon danger">
+                    <i class="icon-archive3"></i>
+                </div>
+                <h5>367</h5>
+                <p>Opérations Annulé</p>
+            </a>
+            <a href="#" class="block-140">
+                <div class="icon info">
+                    <i class="icon-download5"></i>
+                </div>
+                <h5>854</h5>
+                <p>Avoirs</p>
+            </a>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+            <a href="#" class="block-140">
+                <div class="icon danger">
+                    <i class="icon-archive3"></i>
+                </div>
+                <h5>367</h5>
+                <p>Solde Compte</p>
+            </a>
+            <a href="#" class="block-140">
+                <div class="icon info">
+                    <i class="icon-download5"></i>
+                </div>
+                <h5>854</h5>
+                <p>Commissions</p>
+            </a>
+        </div>
+        <div class="card col-xl-3 col-lg-3 col-md-6 col-sm-6">
+            <a class="text-center py-3">
+                <div class="user-profile text-center">
+                    <img src="{{ profile.image.url }}" class="profile-thumb" alt="User Thumb">
+                    <h5 class="profile-name"> {{ profile.name }} </h5>
+                    <div class="d-flex justify-content-center mt-3">
+                        <a class="btn btn-secondary btn-sm mx-1" href="#">Modifier</a>
+                        <a class="btn btn-danger btn-sm mx-1" href="#">suprimer</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- Row end -->
+
+{% endblock content %}

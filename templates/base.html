@@ -1,0 +1,109 @@
+<!doctype html>
+{% load static %}
+<html lang="fr">
+	
+<!-- Mirrored from bootstrap.gallery/unify-dashboards/design-12/fixed-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 Nov 2021 13:52:59 GMT -->
+    <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="Unify Admin Panel" />
+		<meta name="keywords" content="Admin, Fixed Sidebar, Dashboard, Bootstrap4, Sass, CSS3, HTML5, Responsive Dashboard, Responsive Admin Template, Admin Template, Best Admin Template, Bootstrap Template, Themeforest" />
+		<meta name="author" content="Bootstrap Gallery" />
+		<link rel="shortcut icon" href="img/favicon.ico" />
+		<title> {% block title %}{% endblock title %} </title>
+
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+		
+		<!-- Common CSS -->
+		<link rel="stylesheet" href="{% static 'front/css/bootstrap.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'front/fonts/icomoon/icomoon.css' %}" />
+		<link rel="stylesheet" href="{% static 'front/css/main.css' %}" />
+
+		{% block CinetpayScriptsHeader %}{% endblock CinetpayScriptsHeader %}
+
+	</head>
+	<body>
+
+        <!-- Loading starts -->
+		{% comment %} <div class="loading-wrapper">
+			<div class="loading"></div>
+		</div> {% endcomment %}
+		<!-- Loading ends -->
+
+		<!-- BEGIN .app-wrap -->
+		<div class="app-wrap">
+			<!-- BEGIN .app-heading -->
+			{% include 'partials/header.html' %}
+			<!-- END: .app-heading -->
+			<!-- BEGIN .app-container -->
+			<div class="app-container">
+				<!-- BEGIN .app-side -->
+				{% include 'partials/navbar.html' %}
+				<!-- END: .app-side -->
+
+				<!-- BEGIN .app-main -->
+				<div class="app-main">
+					<!-- BEGIN .main-heading -->
+					{% include 'partials/main_heading.html' %}
+					<!-- END: .main-heading -->
+					<!-- BEGIN .main-content -->
+					<div class="main-content">
+
+						{% if messages %}
+							{% for message in messages %}
+								<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mx-auto text-center">
+									<div {% if message.tags %} class="alert custom alert-{{ message.tags }}" {% endif %}>
+										{% if message.tags == 'warning' %}
+											<i class="icon-flash"></i>
+										{% else %}
+											<i class="icon-tick"></i>
+										{% endif %}
+
+										{{ message }}
+									</div>
+								</div>
+							{% endfor %}
+						{% endif %}
+						
+						{% block content %}{% endblock content %}
+						
+					</div>
+					<!-- END: .main-content -->
+				</div>
+				<!-- END: .app-main -->
+			</div>
+			<!-- END: .app-container -->
+			<!-- BEGIN .main-footer -->
+			{% include 'partials/footer.html' %}
+			<!-- END: .main-footer -->
+		</div>
+		<!-- END: .app-wrap -->
+
+		{% block CinetpayScriptsFooter %}{% endblock CinetpayScriptsFooter %}
+
+		<!-- jQuery first, then Tether, then other JS. -->
+		<script src="{% static 'front/js/jquery.js' %}"></script>
+		<script src="{% static 'front/js/tether.min.js' %}"></script>
+		<script src="{% static 'front/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'front/vendor/unifyMenu/unifyMenu.js' %}"></script>
+		<script src="{% static 'front/vendor/onoffcanvas/onoffcanvas.js' %}"></script>
+		<script src="{% static 'front/js/moment.js' %}"></script>
+
+		<!-- Slimscroll JS -->
+		<script src="{% static 'front/vendor/slimscroll/slimscroll.min.js' %}"></script>
+		<script src="{% static 'front/vendor/slimscroll/custom-scrollbar.js' %}"></script>
+
+		<!-- Common JS -->
+		<script src="{% static 'front/js/common.js' %}"></script>
+
+		<script src="{% static 'front/js/printThis.js' %}"></script>
+
+		{% block PrintScripts %}{% endblock PrintScripts %}
+
+	</body>
+
+<!-- Mirrored from bootstrap.gallery/unify-dashboards/design-12/fixed-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 Nov 2021 13:53:02 GMT -->
+</html>

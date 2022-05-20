@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="row gutters">
+  <div class="col-xl-6 col-lg- col-md-6 col-sm-6 mx-auto my-4">
+    <form action="{% url 'cartes' %}" method="get">
+      <div class="d-flex">
+            <input class="form-control w-100" type="search" name="q" value="{{ query }}" placeholder="Rechercher...">
+            <button class="btn btn-dark" type="submit"> <i class="icon-search"></i> </button>
+      </div>
+      <div class="text-center"><small class="text-form text-muted">Rechercher par identifiant (1099...), numéro de carte (4577...), année (2022) ou mois(2) d'expiration,...</small></div>
+    </form>
+  </div>
+</div>
+
+<!-- Row start -->
+<div class="row gutters">
+  {% if cartes %}
+      {% for carte in cartes %}
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <img class="rounded" src="{{ carte.type_carte.logo.url }}" style="width: 40px; height: 40px; object-fit: cover;" alt="User Thumb">
+                    </div>
+                    <div class="">
+                        <small class="bg-light p-2 rounded"> ID : {{ carte.carte_client_id }}  <i class="icon-chevron-right"></i> <span class="text-muted">Exp. : 0{{ carte.carte_exp_month }}/{{ carte.carte_exp_year }}</span> </small>
+                    </div>
+                    <div class="">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-dark btn-sm rounded dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Actions</span>
+                        </button>
+                        <div class="dropdown-menu">
+                          {% if not carte.owner %}
+                            <a class="dropdown-item" href="{% url 'create-client' %}?c={{ carte.slug }}">Vendre</a>
+                          {% else %}
+                            <a class="dropdown-item" href="{% url 'client-profile' carte.owner.slug %}">Info Client</a>
+                          {% endif %}
+                          
+                          {% if carte.owner %}
+                            <a class="dropdown-item" href="{% url 'create-operation' carte.slug %}">Rechargement</a>
+                          {% endif %}
+                          <div class="dropdown-divider"></div>
+                          {% if not carte.owner %}
+                            <a class="dropdown-item" href="{% url 'update-carte' carte.slug %}">Modifier</a>
+                            <a class="dropdown-item text-danger" href="{% url 'delete-carte' carte.slug %}?next={% url 'delete-carte' carte.slug %}">Suprimer</a>
+                          {% else %}
+                            <button class="btn btn-info btn-sm w-100">...</button>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+    {% endfor %}
+
+  {% else %}
+    <div class="alert alert-info bg-info text-white text-center mx-auto mt-5 w-25">
+        <h1>🤔</h1>
+        <span>Aucun résultat trouvé.</span>
+    </div>
+  {% endif %}
+  
+</div>
+<!-- Row end -->
+
+{% include "partials/pagination.html" with queryset=cartes custom_range=custom_range %}
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+    <!-- Row start -->
+    <div class="row gutters">
+        {% for profile in profiles  %}
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <img class="rounded" src="{{ profile.image.url }}" style="width: 40px; height: 40px; object-fit: cover;" alt="User Thumb">
+                        </div>
+                        <div class="">
+                            <span>{{ profile.name | slice:"30"}}</span>
+                        </div>
+                        <div class="">
+                            <a class="btn btn-secondary btn-sm" href="{% url 'profile' profile.slug %}"> <i class="icon-eye"></i> </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Row end -->
+
+{% endblock content %}

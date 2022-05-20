@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+
+   {% if request.GET.f == 'failed' %}
+    <div class="alert alert bg-warning text-center text-white">
+        Votre paiement n'a pu aboutir,  veullez réessayer !
+    </div>
+   {% endif %}
+   
+
+    <!-- Row start -->
+    <div class="row gutters justify-content-center">
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col">
+            <a href="#" class="block-140">
+                <div class="icon pink">
+                    <i class="icon-thumbs-up2"></i>
+                </div>
+                <h5>763</h5>
+                <p>Cartes</p>
+            </a>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col">
+            <a href="{% url 'client-operations' fiche.owner.slug %}" class="block-140">
+                <div class="icon pink">
+                    <i class="icon-thumbs-up2"></i>
+                </div>
+                <h5>763</h5>
+                <p>Opérations En Attentes</p>
+            </a>
+            <a href="#" class="block-140">
+                <div class="icon info">
+                    <i class="icon-download5"></i>
+                </div>
+                <h5>854</h5>
+                <p>Avoirs</p>
+            </a>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col">
+            <a href="#" class="block-140">
+                <div class="icon success">
+                    <i class="icon-bell3"></i>
+                </div>
+                <h5>218</h5>
+                <p>Opérations Validées</p>
+            </a>
+            <a href="#" class="block-140">
+                <div class="icon danger">
+                    <i class="icon-archive3"></i>
+                </div>
+                <h5>367</h5>
+                <p>Opérations Annulé</p>
+            </a>
+        </div>
+        <div class="card col-xl-3 col-lg-3 col-md-6 col-sm-6">
+            <a class="text-center py-3">
+                <div class="user-profile text-center">
+                    <img src="{{ fiche.owner.image.url }}" class="profile-thumb" alt="User Thumb">
+                    <h5 class="profile-name"> {{ fiche.first_name }} {{ fiche.last_name }} </h5>
+                    <p class="profile-name"> {{ fiche.email }} </p>
+                    
+                    <div class="d-flex justify-content-center mt-3">
+                        <a class="btn btn-success btn-sm mx-1 " href="{% url 'create-client' %}?page=already">Nouvelle carte</a>
+                        {% if not cartes %}
+                            <a class="btn btn-danger btn-sm mx-1" href="{% url 'client-update' fiche.slug %}">Modifier</a>
+                            <!-- <a class="btn btn-danger btn-sm mx-1" href="#">suprimer</a> -->
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- Row end -->
+    <div class="row gutters">
+        <div class="card col-xl-9 col-lg-9 col-md-9 col-sm-12 mx-auto p-3">
+            <div class="row">
+                <div class="col-md-3">
+                    <small>Contacts</small>
+                    <p class="profile-name"> +225 {{ fiche.contact_one }}</p>
+                    <p class="profile-name"> +225 {{ fiche.contact_two }} </p>
+                </div>
+                <div class="col-md-3">
+                    <small>Pièce d'identité</small>
+                    <p class="profile-name"> {{ fiche.identity }} </p>
+                    <p class="profile-name"> {{ fiche.identity_num }} </p>
+                </div>
+                <div class="col-md-3">
+                    <small>Date et Lieu de naissance</small>
+                    <p class="profile-name"> {{ fiche.birth }} </p>
+                    <p class="profile-name"> {{ fiche.birth_place }} </p>
+                </div>
+                <div class="col-md-3">
+                    <small>Email</small>
+                    <p class="profile-name"> {{ fiche.contact_one }} {{ fiche.contact_two }} </p>
+                </div>
+                <hr class="w-75 mx-auto">
+                <div class="col-md-4">
+                    <small>Adresse</small>
+                    <p class="profile-name"> {{ fiche.contry }} </p>
+                    <p class="profile-name"> {{ fiche.city }} </p>
+                    <p class="profile-name"> {{ fiche.adresse }} </p>
+                </div>
+                <div class="col-md-4">
+                    <small>Carte Recto</small>
+                    <img src="{{ fiche.identity_card_recto.url }}" class="img-fluid" style="object-fit: cover;" alt="User Thumb">
+                </div>
+                <div class="col-md-4">
+                    <small>Carte Verso</small>
+                    <img src="{{ fiche.identity_card_verso.url }}" class="img-fluid" style="object-fit: cover;" alt="User Thumb">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

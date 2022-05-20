@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<form action="{% if page == 'update' %} {% url 'client-update' fiche.slug %} {% else %} {% url 'create-client' %} {% endif %}" method="post" id="addClient">
+    {% csrf_token %}
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
+        <div class="card">
+
+           {% if page == 'update' %}
+            <div class="card-header">Modifier la Fiche Client</div>
+           {% else %}
+            <div class="card-header">Nouveau Client</div>
+           {% endif %}
+           
+            
+            <div class="card-body">
+
+                {% if cartes %}
+                
+                    <div class="row">
+
+                        {% if page == 'create' %}
+
+                            <div class="col-md-3 form-group">
+                                
+                                
+                                {% if carte %}
+                                    <label for="">Carte</label>
+                                    <input class="form-control" type="text" value="{{ carte.carte_client_id }}" readonly>
+                                    <input class="form-control" type="hidden" name="carte" value="{{ carte.slug }}">
+                                {% else %}
+                                    <label for="">Choisir une carte</label>
+                                    <select class="form-control" name="carte">
+                                        {% for carte in cartes %}
+                                            {% if not carte.owner %}
+                                                <option value="{{ carte.slug }}"> {{ carte.carte_client_id }} </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+
+                            
+                                
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <!-- Dèja un compte -->
+                                <label for="">Déjà un Compte ?</label>
+                                <button type="button" class="form-control w-25 bg-secondary text-white" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo"><i class="icon-user2"></i></button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel2">Comptes Clients</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <div class="form-control" name="" id="" style="height: 30rem; overflow-y: auto;">
+                                                            {% for client in clients %}
+                                                                <div class="input-group my-1">
+                                                                    <span class="input-group-addon">
+                                                                        <input type="radio" name="client" value="{{ client.slug }}" >
+                                                                    </span>
+                                                                    <input type="text" class="form-control" value="{{ client.first_name | upper }} {{ client.last_name | upper }}" readonly>
+                                                                </div>
+                                                            {% empty %}
+                                                                <div class="alert bg-info text-white text-center">
+                                                                    Aucun compte pour l'instant !
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                {% if clients %}
+                                                    <button type="button" class="btn btn-primary" onclick="document.getElementById('addClient').submit()">Enregistrer</button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        {% endif %}
+                    </div>
+
+                {% else %}
+                    <div class="alert bg-info text-white text-center">
+                        <span>Veuillez d'abord enregistrer une carte !</span> <a href="{% url 'create-carte' %}" class="btn btn-secondary btn-sm">Ici</a>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+
+                    {% for field in form %}
+                
+                    
+                        <div class="col-md-3 form-group">
+
+                            <label for="">{{ field.label }} </label>
+
+                            {{ field }}
+
+                            {% if field.help_text %}
+                                <small class="form-text text-muted"> {{ field.help_text }} </small>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                            <small class="form-text text-danger"> {{ error }} </small>
+                            {% endfor %}
+
+                        </div>
+                    
+
+                {% endfor %}
+
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-3 float-right">
+                    {% if page == 'update'%}
+                        Modifier
+                    {% else %}
+                        Enregistrer
+                    {% endif %}
+                    
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

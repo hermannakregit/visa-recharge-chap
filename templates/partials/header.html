@@ -1,0 +1,88 @@
+{% load static %}
+<header class="app-header">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 col-8">
+                <a href="index-2.html" class="logo">
+                    <img src="{% static 'front/img/unify.png' %}" alt="Unify Admin Dashboard">
+                </a>
+                <a class="mini-nav-btn" href="#" id="onoffcanvas-nav">
+                    <i class="icon-sort"></i>
+                </a>
+                <a href="#app-side" data-toggle="onoffcanvas" class="onoffcanvas-toggler" aria-expanded="true">
+                    <i class="icon-chevron-thin-left"></i>
+                </a>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-4 col-4">
+                <ul class="header-actions">
+                    <li class="dropdown">
+                        <a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
+                            <i class="icon-notifications_none"></i>
+                            <span class="count-label"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right lg" aria-labelledby="notifications">
+                            <ul class="imp-notify">
+                                <li>
+                                    <div class="icon">W</div>
+                                    <div class="details">
+                                        <p><span>Wilson</span> Notofication d'opération</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">J</div>
+                                    <div class="details">
+                                        <p><span>Wilson</span> Notofication d'opération</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon secondary">R</div>
+                                    <div class="details">
+                                        <p><span>Wilson</span> Notofication d'opération</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                   
+                    <li class="dropdown">
+                        <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
+                            <img class="avatar" src="{{ request.user.profile.image.url }}" style="width: 35px; height: 35px; object-fit: cover;" alt="User Thumb">
+                            <i class="icon-chevron-small-down"></i>
+                        </a>
+                        <div class="dropdown-menu lg dropdown-menu-right" aria-labelledby="userSettings">
+                            <ul class="user-settings-list">
+                                <li>
+                                    <a href="profile.html">
+                                        <div class="icon">
+                                            <i class="icon-account_circle"></i>
+                                        </div>
+                                        <p>Profil</p>
+                                    </a>
+                                </li>
+                                <!-- <li>
+                                    <a href="profile.html">
+                                        <div class="icon red">
+                                            <i class="icon-cog3"></i>
+                                        </div>
+                                        <p>Settings</p>
+                                    </a>
+                                </li> -->
+                                <!-- <li>
+                                    <a href="filters.html">
+                                        <div class="icon yellow">
+                                            <i class="icon-schedule"></i>
+                                        </div>
+                                        <p>Activity</p>
+                                    </a>
+                                </li> -->
+                            </ul>
+                            <div class="logout-btn">
+                                <a href="{% url 'logout' %}" class="btn btn-danger">Déconnexion</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

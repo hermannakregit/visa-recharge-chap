@@ -1,0 +1,131 @@
+{% load static %}
+<aside class="app-side fixed" id="app-side">
+    <!-- BEGIN .side-content -->
+    <div class="side-content ">
+        <!-- BEGIN .user-profile -->
+        <div class="user-profile">
+            <img src="{{ request.user.profile.image.url }}" class="profile-thumb" style="object-fit: cover;" alt="User Thumb">
+            <h6 class="profile-name"> {{ request.user.profile.name }} </h6>
+            <a class="btn btn-success btn-sm my-3 w-75" href="#">Profil</a>
+        </div>
+        <!-- END .user-profile -->
+        <div class="sidebarNavScroll">
+            <!-- BEGIN .side-nav -->
+            <nav class="side-nav">
+                <!-- BEGIN: side-nav-content -->
+                <ul class="unifyMenu" id="unifyMenu">
+                    <li>
+                        <a href="#" class="has-arrow" aria-expanded="false">
+                            <span class="has-icon">
+                                <i class="icon-laptop_windows"></i>
+                            </span>
+                            <span class="nav-title">ACCEUIL</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="">Opérations</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'cartes' %}">Cartes</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'clients' %}">Clients</a>
+                            </li>
+                            <li>
+                                <a href='dashboard3.html'>Recherches Avancées</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="has-arrow" aria-expanded="false">
+                            <span class="has-icon">
+                                <i class="icon-adjust2"></i>
+                            </span>
+                            <span class="nav-title">CARTES</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="{% url 'create-carte' %}">Enregister</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'cartes' %}">Liste</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="has-arrow" aria-expanded="false">
+                            <span class="has-icon">
+                                <i class="icon-adjust2"></i>
+                            </span>
+                            <span class="nav-title">CLIENTS</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="{% url 'create-client' %}">Nouveau</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'clients' %}">Liste</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="has-arrow" aria-expanded="false">
+                            <span class="has-icon">
+                                <i class="icon-adjust2"></i>
+                            </span>
+                            <span class="nav-title">PAIEMENTS</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="filters.html">Liste</a>
+                            </li>
+                            <li>
+                                <a href="datepickers.html">Avoirs</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="has-arrow" aria-expanded="false">
+                            <span class="has-icon">
+                                <i class="icon-adjust2"></i>
+                            </span>
+                            <span class="nav-title">OPERATIONS</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="filters.html">Récents</a>
+                            </li>
+                            <li>
+                                <a href="datepickers.html">Lister</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="has-arrow" aria-expanded="false">
+                            <span class="has-icon">
+                                <i class="icon-adjust2"></i>
+                            </span>
+                            <span class="nav-title">OPERATEURS</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="{% url 'register' %}">Nouveau</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'profiles' %}">Lister</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="btn btn-danger bg-danger text-white btn-sm w-75 mx-auto mt-4 justify-content-center" href="{% url 'logout' %}">
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END: side-nav-content -->
+            </nav>
+            <!-- END: .side-nav -->
+        </div>
+    </div>
+    <!-- END: .side-content -->
+</aside>

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+    <h1>All carte</h1>
+
+    <h1> {{ carte.carte_num }} </h1>
+
+    <a href="{% url 'update-carte' carte.slug %}">Modifier</a>
+
+
+{% endblock content %}
